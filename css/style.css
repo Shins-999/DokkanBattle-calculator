@@ -129,3 +129,43 @@ input::-webkit-inner-spin-button {
     margin-bottom: 4px;
     width: 220px;
 }
+
+.help-btn {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    padding: 0px;
+    margin-left: clamp(0px, 100%, 374px);
+    background: none;
+    border: none;
+}
+
+.help-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.body {
+    margin: 0;
+}
+
+.header {
+    background-color: rgb(230, 230, 230);
+    padding-top: 31px;
+    padding-bottom: 5px;
+    padding-left: 31px;
+    padding-right: 31px;
+    width: 100%;
+    height: auto;
+}
+
+.header-top {
+    margin: 0px;
+    font-size: 30px;
+}
+
+.main {
+    margin: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}

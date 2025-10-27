@@ -4,16 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DokkanBattle 実数値計算</title>
+    <title>DokkanBattle 実数値計算機</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
-    <header>
-        <h1>ドッカンバトル 実数値計算</h1>
+<body class="body">
+    <header class="header">
+        <h1 class="header-top">ドッカンバトル 実数値計算機</h1>
+        <button id="helpButton" class="help-btn" title="help">
+            <img src="img/helpIcon.png" alt="Help Icon" class="help-icon">
+        </button>
     </header>
 
-    <main>
+    <main class="main">
         <button id="openSaveModal">セーブ/ロード</button>
         <div id="saveModal" class="modal hidden">
             <div class="modal-content">
@@ -66,17 +69,26 @@
             </select>
         </div>
 
+        <div>
+            <select id="raritySelect">
+                <option value="LR">LR</option>
+                <option value="fesUR">フェス限UR</option>
+                <option value="normalUR">通常ガチャ産UR</option>
+                <option value="eventUR">イベント産UR</option>
+            </select>
+        </div>
+
         <div class="status">
             <p class="Sentence">ステータス</p>
             <form onsubmit="return false;">
-                <input type="number" class="status-input NumericalValue" data-key="Status" value="10000" min="1"
+                <input type="number" class="status-input NumericalValue" data-key="Status" value="0" min="1"
                     onwheel="this.blur()">
             </form>
         </div>
         <div class="status">
             <p class="Sentence">リーダースキル</p>
             <form onsubmit="return false;">
-                <input type="number" class="status-input Percent" data-key="LeaderSkill" value="440" min="0"
+                <input type="number" class="status-input Percent" data-key="LeaderSkill" value="0" min="0"
                     onwheel="this.blur()">
             </form>
             <p class="Sentence">%</p>
@@ -108,23 +120,23 @@
         <div class="status" data-hide="DEF">
             <p class="Sentence">気力ボーナス</p>
             <form onsubmit="return false;">
-                <input type="number" class="status-input Magnification" data-key="maxVitalityBonus" value="2" min="1"
-                    step="0.01" onwheel="this.blur()">
+                <input type="number" class="status-input Magnification" data-key="maxVitalityBonus" value="1" min="1"
+                    step="0.01" data-rarity-value="maxVitalityBonus" onwheel="this.blur()">
             </form>
             <p class="Sentence">倍</p>
         </div>
-        <div class="status" data-hide="DEF">
+        <div class="status" data-hide="DEF" data-visible-for="LR">
             <p class="Sentence">追撃必殺気力ボーナス</p>
             <form onsubmit="return false;">
-                <input type="number" class="status-input Magnification" data-key="minVitalityBonus" value="1.5" min="1"
-                    step="0.01" onwheel="this.blur()">
+                <input type="number" class="status-input Magnification" data-key="minVitalityBonus" value="1" min="1"
+                    step="0.01" data-rarity-value="minVitalityBonus" onwheel="this.blur()">
             </form>
             <p class="Sentence">倍</p>
         </div>
         <div class="status" data-hide="DEF">
             <p class="Sentence">必殺技威力</p>
             <form onsubmit="return false;">
-                <input type="number" class="status-input Percent" data-key="SuperSpecialMove" value="570" min="100"
+                <input type="number" class="status-input Percent" data-key="SuperSpecialMove" value="100" min="100"
                     onwheel="this.blur()">
             </form>
             <p class="Sentence">%</p>
@@ -132,7 +144,7 @@
         <div class="status" data-hide="DEF">
             <p class="Sentence">追撃必殺技威力</p>
             <form onsubmit="return false;">
-                <input type="number" class="status-input Percent" data-key="StandardSpecialMove" value="425" min="100"
+                <input type="number" class="status-input Percent" data-key="StandardSpecialMove" value="100" min="100"
                     onwheel="this.blur()">
             </form>
             <p class="Sentence">%</p>
@@ -153,7 +165,7 @@
             </form>
             <p class="Sentence">%</p>
         </div>
-        <div class="status" data-hide="DEF">
+        <div class="status" data-hide="DEF" data-visible-for="LR">
             <p class="Sentence">通常必殺技ATK追加効果</p>
             <form onsubmit="return false;">
                 <input type="number" class="status-input Percent" data-key="SuperSpecialMoveAdditionalEffect" value="0"

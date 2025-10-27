@@ -1,0 +1,52 @@
+.header {
+    background-color: rgb(200, 200, 200);
+    margin: 0px;
+    padding: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+    height: auto;
+    font-size: 25px;
+}
+
+.section {
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.section-top {
+    color: rgb(206, 110, 0);
+}
+
+.div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.article {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.article-top {
+    color: rgb(49, 162, 56);
+}
+
+.list {
+    margin-left: 20px;
+}
+
+.card {
+    background-color: #f2f5f7;
+    border: 3px double #52607e;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
