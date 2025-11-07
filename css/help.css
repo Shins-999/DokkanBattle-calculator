@@ -16,7 +16,8 @@
 }
 
 .section-top {
-    color: rgb(206, 110, 0);
+    color: #0b0500;
+    font-size: 23px;
 }
 
 .div {
@@ -27,11 +28,12 @@
 .article {
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
 .article-top {
-    color: rgb(49, 162, 56);
+    color: #0d1f0e;
+    font-size: 18px;
 }
 
 .list {
@@ -39,14 +41,24 @@
 }
 
 .card {
-    background-color: #f2f5f7;
-    border: 3px double #52607e;
+    width: auto;
+    /* background-color: #c8d9e5; */
+    background-color: #f9f9f9;
+    /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); */
     border-radius: 10px;
+    border: 1px solid #000000;
     padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.parentborder {
+    border-left: 2px solid #666666;
+    margin-left: 10px;
 }

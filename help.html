@@ -16,85 +16,120 @@
 
     <main>
         <section class="section card">
-            <h2 class="section-top">サイト概要</h3>
-                <p>このツールは、ゲーム『ドラゴンボールZ ドッカンバトル』の実数値を計算するためのものです。</p>
+            <h2 class="section-top">サイト概要</h2>
+            <p>このツールは、ゲーム『ドラゴンボールZ ドッカンバトル』の実数値を計算するためのものです。</p>
         </section>
         <section class="section card">
-            <h2 class="section-top">使い方</h3>
-                <p>キャラクターのステータスなどの値を入れることで、最終的な実数値を計算します。</p>
+            <h2 class="section-top">使い方</h2>
+            <p>キャラクターのステータスなどの値を入れることで、最終的な実数値を計算します。</p>
         </section>
         <section class="section">
             <div class="div card">
-                <h2 class="section-top">計算方法</h3>
-                    <p>以下の数値を全て入れます。（同じ補正は合計します。）<br>以下の数値を順番に掛けて、その度に四捨五入します。<br>最終的な値が実数値に出力されます。<br>また、一部はATKのみで効果を発動するものもあります。
-                    </p>
+                <h2 class="section-top">計算方法</h2>
+                <p>以下に記述した数値をまとめます。（同じ補正は合計します。）
+                    <br>以下の順番通りに掛けて、その度に四捨五入します。
+                    <br>最終的な値が実数値に出力されます。
+                    <br>一部はATKのみで効果を発動するものもあります。
+                </p>
             </div>
-            <article class="article card">
-                <h4 class="article-top">ステータス</h4>
-                <li class="list">キャラクターの基本ステータスです。</li>
-                <li class="list">潜在能力解放分や、スキル玉の分も含みます。</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">リーダースキル</h4>
-                <li class="list">リーダースキルの補正です。</li>
-                <li class="list">リーダーフレンドの補正を合計します。</li>
-                <li class="list">（例：リーダーフレンドともに220%補正がかかっている場合は440%）</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">フィールドスキル</h4>
-                <li class="list">フィールド効果による補正です。</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">足し算パッシブ</h4>
-                <li class="list">パッシブスキルの補正のうち、足し算パッシブと呼ばれるものです。</li>
-                <li class="list">パッシブスキルの中で、主にターン開始時に発動するものが足し算パッシブです。</li>
-                <li class="list">（基礎補正やチームにいる時パッシブなどが対象です。わからない場合は検索推奨です。）</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">掛け算パッシブ</h4>
-                <li class="list">パッシブスキルの補正のうち、掛け算パッシブと呼ばれるものです。</li>
-                <li class="list">パッシブスキルの中で、主に行動中に発動するものが掛け算パッシブです。</li>
-                <li class="list">（攻撃を受けた時や攻撃時などが対象です。わからない場合は検索推奨です。）</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">サポートメモリー＆アイテム</h4>
-                <li class="list">サポートメモリーとアイテムによる補正の合計です。</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">アクティブスタンバイスキル</h4>
-                <li class="list">アクティブスキル、またはスタンバイスキルによる補正です。</li>
-                <li class="list">アクティブスキルまたはスタンバイスキルのダメージなどと、追加効果が含まれます。</li>
-                <li class="list">（究極ダメージは550%（450%UP）、超究極ダメージは750%（650%UP）です。）</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">リンクスキル</h4>
-                <li class="list">リンクスキルの効果による補正です。</li>
-                <li class="list">リンクスキルは、同じリンクスキルを持つキャラクターが隣にいると発動します。</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">気力ボーナス</h4>
-                <li class="list">気力ゲージの量に応じた補正です。</li>
-                <li class="list">基本的に、LRの気力ゲージ24で2倍、追撃時などの気力ゲージ12で1.5倍。</li>
-                <li class="list">フェス限の気力ゲージ12で1.5倍、通常ガチャ産の気力ゲージ12で1.4倍、</li>
-                <li class="list">イベント産の気力ゲージ12で1.3倍です。</li>
-            </article>
-            <article class="article card">
-                <h4 class="article-top">必殺技補正</h4>
-                <li class="list">必殺技による補正です。</li>
-                <li class="list">
-                    必殺技威力、必殺技追加効果、潜在能力の必殺技威力UPが含まれます。
-                    <br>必殺技威力は、
-                    <br>超極大ダメージがレベル20で570%、レベル25で620%。
-                    <br>極大ダメージがレベル20で425%、レベル25で450%。
-                    <br>超絶特大ダメージがレベル10で505%、レベル15で630%。
-                    <br>超特大ダメージがレベル10で430%、レベル15で530%。
-                    <br>破壊的ダメージがレベル10で290%、レベル15で340%、レベル20で390%、レベル25で440%。
-                <li class="list">潜在能力の必殺技威力UPは必殺技発動時にのみ発動し、レベル1ごとに+5%です。</li>
-            </article>
+            <div class="parentborder">
+                <article class="article card">
+                    <h4 class="article-top">ステータス</h4>
+                    <ul>
+                        <li class="list">キャラクターの基本ステータスです。</li>
+                        <li class="list">潜在能力解放分や、スキル玉の分も含みます。</li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">リーダースキル</h4>
+                    <li class="list">リーダースキルの補正です。</li>
+                    <ul>
+                        <li class="list">
+                            リーダーフレンドの補正を合計します。
+                            <br>（例：リーダーフレンドともに220%補正がかかっている場合は440%）
+                        </li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">フィールドスキル</h4>
+                    <ul>
+                        <li class="list">フィールド効果による補正です。</li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">足し算パッシブ</h4>
+                    <ul>
+                        <li class="list">パッシブスキルの補正のうち、足し算パッシブと呼ばれるものです。</li>
+                        <li class="list">
+                            パッシブスキルの中で、主にターン開始時に発動するものが足し算パッシブです。
+                            <br>（基礎補正やチームにいる時パッシブなどが対象です。わからない場合は検索推奨です。）
+                        </li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">掛け算パッシブ</h4>
+                    <ul>
+                        <li class="list">パッシブスキルの補正のうち、掛け算パッシブと呼ばれるものです。</li>
+                        <li class="list">
+                            パッシブスキルの中で、主に行動中に発動するものが掛け算パッシブです。
+                            <br>（攻撃を受けた時や攻撃時などが対象です。わからない場合は検索推奨です。）
+                        </li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">サポートメモリー＆アイテム</h4>
+                    <ul>
+                        <li class="list">サポートメモリーとアイテムによる補正の合計です。</li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">アクティブスタンバイスキル</h4>
+                    <ul>
+                        <li class="list">アクティブスキル、またはスタンバイスキルによる補正です。</li>
+                        <li class="list">
+                            アクティブスキルまたはスタンバイスキルのダメージなどと、追加効果が含まれます。
+                            <br>（究極ダメージは550%（450%UP）、超究極ダメージは750%（650%UP）です。）
+                        </li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">リンクスキル</h4>
+                    <ul>
+                        <li class="list">リンクスキルの効果による補正です。</li>
+                        <li class="list">リンクスキルは、同じリンクスキルを持つキャラクターが隣にいると発動します。</li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">気力ボーナス</h4>
+                    <ul>
+                        <li class="list">気力ゲージの量に応じた補正です。</li>
+                        <li class="list">基本的に、LRの気力ゲージ24で2倍、追撃時などの気力ゲージ12で1.5倍。</li>
+                        <li class="list">フェス限の気力ゲージ12で1.5倍、通常ガチャ産の気力ゲージ12で1.4倍、</li>
+                        <li class="list">イベント産の気力ゲージ12で1.3倍です。</li>
+                    </ul>
+                </article>
+                <article class="article card">
+                    <h4 class="article-top">必殺技補正</h4>
+                    <ul>
+                        <li class="list">必殺技による補正です。</li>
+                        <li class="list">
+                            必殺技威力、必殺技追加効果、潜在能力の必殺技威力UPが含まれます。
+                            <br>必殺技威力は、
+                            <br>超極大ダメージがレベル20で570%、レベル25で620%。
+                            <br>極大ダメージがレベル20で425%、レベル25で450%。
+                            <br>超絶特大ダメージがレベル10で505%、レベル15で630%。
+                            <br>超特大ダメージがレベル10で430%、レベル15で530%。
+                            <br>破壊的ダメージがレベル10で290%、レベル15で340%、レベル20で390%、レベル25で440%。
+                        <li class="list">潜在能力の必殺技威力UPは必殺技発動時にのみ発動し、レベル1ごとに+5%です。</li>
+                    </ul>
+                </article>
+            </div>
         </section>
         <section class="section card">
-            <h2 class="section-top">参考サイト : </h2>
-            <li class="list"><a href="https://数字で見るドッカンバトル.com" target="_blank">数字で見るドッカンバトル</a></li>
+            <h2 class="section-top">参考 : </h2>
+            <ul>
+                <li class="list"><a href="https://数字で見るドッカンバトル.com" target="_blank">数字で見るドッカンバトル</a></li>
+            </ul>
         </section>
     </main>
 

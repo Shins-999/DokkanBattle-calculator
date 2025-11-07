@@ -1,12 +1,35 @@
+.header {
+    background-color: rgb(193, 216, 235);
+    padding-top: 31px;
+    padding-bottom: 31px;
+    padding-left: 31px;
+    padding-right: 31px;
+    width: 100%;
+    height: auto;
+}
+
+.header-top {
+    margin: 0px;
+    font-size: 30px;
+}
+
+.main {
+    width: 350px;
+    margin: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    position: relative;
+}
+
 .status {
+    width: 400px;
+    height: auto;
     display: flex;
     align-items: center;
     gap: 10px;
     margin: 0px;
-    padding: 0px;
+    padding: 4px;
     font-size: 1rem;
-    height: auto;
-    width: auto;
 }
 
 .status input {
@@ -50,6 +73,8 @@ input::-webkit-inner-spin-button {
 .big-value {
     height: auto;
     width: 350px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     background-color: orange;
 }
 
@@ -60,6 +85,8 @@ input::-webkit-inner-spin-button {
 
 .left {
     margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .main-value {
@@ -125,9 +152,13 @@ input::-webkit-inner-spin-button {
 }
 
 .Sentence {
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin: 0;
     width: 220px;
+}
+
+.unit {
+    margin: 0;
+    width: 14px;
 }
 
 .help-btn {
@@ -138,34 +169,19 @@ input::-webkit-inner-spin-button {
     margin-left: clamp(0px, 100%, 374px);
     background: none;
     border: none;
+    position: absolute;
+    top: 5px;
+    right: 10px;
 }
 
 .help-icon {
     width: 25px;
     height: 25px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 .body {
     margin: 0;
-}
-
-.header {
-    background-color: rgb(230, 230, 230);
-    padding-top: 31px;
-    padding-bottom: 5px;
-    padding-left: 31px;
-    padding-right: 31px;
-    width: 100%;
-    height: auto;
-}
-
-.header-top {
-    margin: 0px;
-    font-size: 30px;
-}
-
-.main {
-    margin: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
 }

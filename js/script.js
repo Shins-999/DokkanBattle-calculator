@@ -8,9 +8,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const raritySelector = document.getElementById("raritySelect");
     const rarityValues = {
         LR: { maxVitalityBonus: 2, minVitalityBonus: 1 },
-        fesUR: { maxVitalityBonus: 1.5, minVitalityBonus: 1 },
-        normalUR: { maxVitalityBonus: 1.4, minVitalityBonus: 1 },
-        eventUR: { maxVitalityBonus: 1.3, minVitalityBonus: 1 }
+        UR: { maxVitalityBonus: 1.5, minVitalityBonus: 1.5 },
     };
 
 
@@ -393,5 +391,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     helpButton.addEventListener("click", () => {
         window.open("help.html", "_blank");
+        console.log("HelpButton click");
     });
 });
