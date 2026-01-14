@@ -29,6 +29,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 15px;
+    background-color: #f0f0f0;
 }
 
 .article-top {
@@ -42,10 +43,7 @@
 
 .card {
     width: auto;
-    /* background-color: #c8d9e5; */
-    background-color: #f9f9f9;
-    /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); */
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid #000000;
     padding: 15px;
     margin-top: 20px;
