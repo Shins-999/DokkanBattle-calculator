@@ -12,15 +12,13 @@
 <body class="body">
     <header class="header">
         <h1 class="header-top">ドッカンバトル 実数値計算機</h1>
+        <button id="helpButton" class="help-btn" title="help">
+            <img src="img/helpIcon.svg" alt="Help Icon" class="help-icon">
+        </button>
     </header>
 
     <main class="main">
         <button id="openSaveModal">セーブ/ロード</button>
-
-        <!-- ヘルプボタン -->
-        <button id="helpButton" class="help-btn" title="help">
-            <img src="img/helpIcon.svg" alt="Help Icon" class="help-icon">
-        </button>
 
         <!-- セーブ・ロードモーダル -->
         <div id="saveModal" class="modal hidden">
@@ -187,7 +185,7 @@
 
         <div class="status" data-input-group="LinkSkill">
             <p class="Sentence">リンクスキル</p>
-            <form class="input-section" class="input-section" onsubmit="return false;">
+            <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
                     <input type="number" class="status-input Percent" data-key="LinkSkill" value="0" min="0"
                         onwheel="this.blur()">
@@ -233,7 +231,7 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="SuperSpecialMove">
+        <div class="status" data-input-group="SuperSpecialMove" data-hide="DEF">
             <p class="Sentence">必殺技威力</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -255,12 +253,12 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="StandardSpecialMove">
+        <div class="status" data-input-group="StandardSpecialMove" data-hide="DEF">
             <p class="Sentence">追撃必殺技威力</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="StandardSpecialMove" value="100"
-                        min="100" onwheel="this.blur()">
+                    <input type="number" class="status-input Percent" data-key="StandardSpecialMove"
+                        data-rarity-key="StandardSpecialMove" value="100" min="100" onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
             </form class="input-section">
@@ -299,7 +297,7 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="StandardSpecialAdditionalEffect">
+        <div class="status" data-input-group="StandardSpecialAdditionalEffect" data-hide="DEF">
             <p class="Sentence">必殺技ATK追加効果</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -321,7 +319,7 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="SuperSpecialMoveAdditionalEffect">
+        <div class="status" data-input-group="SuperSpecialMoveAdditionalEffect" data-hide="DEF">
             <p class="Sentence">追撃必殺技ATK追加効果</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -425,7 +423,7 @@
         <template id="FollowUp-input-template">
             <div class="input-box">
                 <label class="checkbox">
-                    <input type="checkbox" class="status-input" data-key="FollowUpType">
+                    <input type="checkbox" class="status-input" data-key="FollowUp">
                     <span>必殺</span>
                 </label>
                 <button type="button" class="delete-btn">
@@ -448,15 +446,25 @@
         </div>
 
         <!-- 会心発動率 -->
-        <div class="status" id="criticalWrapper" data-hide="DEF">
+        <template id="CriticalRate-input-template">
+            <div class="input-box">
+                <input type="number" class="status-input Percent" data-key="CriticalRate" value="0" min="0"
+                    onwheel="this.blur()">
+                <p class="unit">%</p>
+                <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
+            </div>
+        </template>
+
+        <div class="status" data-input-group="CriticalRate" data-hide="DEF">
             <p class="Sentence">会心発動率</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" id="criticalRate" class="status-input Percent" value="0" min="0"
-                        onwheel="this.blur()">
+                    <input type="number" id="criticalRate" class="status-input Percent" data-key="CriticalRate"
+                        value="0" min="0" onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
             </form class="input-section">
+            <button type="button" class="add-btn">＋</button>
         </div>
 
         <!-- 全属性効果抜群 -->
@@ -477,14 +485,25 @@
         </div>
 
         <!-- ダメージ軽減率 -->
-        <div class="status" data-hide="ATK">
+        <template id="ReductionRate-input-template">
+            <div class="input-box">
+                <input type="number" class="status-input Percent" data-key="ReductionRate" value="0" min="0"
+                    onwheel="this.blur()">
+                <p class="unit">%</p>
+                <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
+            </div>
+        </template>
+
+        <div class="status" data-input-group="ReductionRate" data-hide="ATK">
             <p class="Sentence">ダメージ軽減率</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="Percent" id="reductionRate" value="0" min="0" onwheel="this.blur()">
+                    <input type="number" class="status-input Percent" id="reductionRate" data-key="ReductionRate"
+                        value="0" min="0" onwheel="this.blur()">
+                    <p class="unit">%</p>
                 </div>
-            </form class="input-section">
-            <p class="unit">%</p>
+            </form>
+            <button type="button" class="add-btn">＋</button>
         </div>
 
         <!-- 全属性ガード -->

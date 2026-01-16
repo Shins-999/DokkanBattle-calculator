@@ -1,4 +1,5 @@
 import App from "./script.js";
+window.addInputBoxForSave = addInputBox;
 
 const update = App.selectUpdate.bind(App);
 

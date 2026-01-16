@@ -22,8 +22,9 @@ const App = {
     fieldSkillMul: 1,
     supportMul: 1,
     followUpList: [],
-    currentKiBonus: 0,
     superAdjustTotal: 0,
+    criticalRate: 0,
+    reductionRate: 0,
     finalValues: [],
 
     init() {
@@ -63,6 +64,60 @@ const App = {
             });
         }
 
+        // saveButton
+        const openBtn = document.getElementById("openSaveModal");
+        const closeBtn = document.getElementById("closeSaveModal");
+        const saveModal = document.getElementById("saveModal");
+
+        openBtn?.addEventListener("click", e => {
+            e.preventDefault();
+            saveModal.classList.remove("hidden");
+        })
+
+        closeBtn?.addEventListener("click", () => {
+            saveModal.classList.add("hidden");
+        })
+
+        saveModal?.addEventListener("click", (e) => {
+            if (e.target === saveModal) {
+                saveModal.classList.add("hidden");
+            }
+        })
+
+        // save/load 処理
+        document.querySelectorAll(".slot").forEach(slot => {
+            const index = slot.dataset.slotIndex;
+            const nameInput = slot.querySelector(".slot-name");
+            const saveBtn = slot.querySelector(".save-btn");
+            const loadBtn = slot.querySelector(".load-btn");
+
+            // スロット名復元
+            const savedName = localStorage.getItem(`save-slot-name-${index}`);
+            if (savedName) nameInput.value = savedName;
+
+            nameInput.addEventListener("change", () => {
+                localStorage.setItem(`save-slot-name-${index}`, nameInput.value);
+            });
+
+            saveBtn.addEventListener("click", () => {
+                const data = this.getSaveData();
+                localStorage.setItem(`save-slot-${index}`, JSON.stringify(data));
+                alert("セーブ完了");
+            });
+
+            loadBtn.addEventListener("click", () => {
+                const raw = localStorage.getItem(`save-slot-${index}`);
+                if (!raw) {
+                    alert("データがありません");
+                    return;
+                }
+                const data = JSON.parse(raw);
+                this.loadSaveData(data);
+                alert("ロード完了");
+            });
+        });
+
+        // 入力ボックスの登録
         document.addEventListener("input", e => {
             if (e.target.matches(".status input")) {
                 this.update();
@@ -99,9 +154,9 @@ const App = {
 
     updateRarity() {
         if (!this.raritySelector) return;
+        if (this.selector?.value === "DEF") return;
 
         const selectedRarity = this.raritySelector.value;
-        const raritySet = this.rarityValues[selectedRarity];
 
         // LR専用表示
         const lrOnlyInputs = document.querySelectorAll("[data-visible-for='LR']");
@@ -113,13 +168,21 @@ const App = {
                 parent.classList.add("hidden");
             }
         });
+    },
 
-        // レアリティ値反映
+    applyRarityDefaults() {
+        if (!this.raritySelector) return;
+        if (this.selector?.value === "DEF") return;
+
+        const selectedRarity = this.raritySelector.value;
+        const raritySet = this.rarityValues[selectedRarity];
+        if (!raritySet) return;
+
         document.querySelectorAll(".status input").forEach(input => {
             const key = input.dataset.rarityKey;
-            if (key && raritySet[key] !== undefined) {
-                input.value = raritySet[key];
-            }
+            if (!key || raritySet[key] === undefined) return;
+
+            input.value = raritySet[key];
         });
     },
 
@@ -150,6 +213,8 @@ const App = {
                 case "ActionSkill": this.activeSkillMul += val / 100; break;
                 case "SupportMemory": this.supportMul += val / 100; break;
                 case "SupportItem": this.supportMul += val / 100; break;
+                case "CriticalRate": this.criticalRate += val / 100; break;
+                case "ReductionRate": this.reductionRate += val / 100; break;
             }
         });
 
@@ -157,36 +222,35 @@ const App = {
             追撃リスト生成
             ========== */
         const followUpInputs = document.querySelectorAll(
-            'input[data-key="FollowUpType"]'
+            'input[data-key="FollowUp"]'
         );
 
         this.followUpList = Array.from(followUpInputs).map(input => ({
             isSuper: input.checked
         }));
-
         /* ==========
             共通ベース値
             ========== */
-        const baseValue = Math.floor(
-            this.baseStat
-            * this.leaderSkillMul
-            * this.fieldSkillMul
-            * this.addPassiveMul
-            * this.mulPassiveMul
-            * this.supportMul
-            * this.activeSkillMul
-            * this.linkSkillMul
-        );
+        let baseNum = Math.floor(this.baseStat * this.leaderSkillMul)
+        baseNum = Math.floor(baseNum * this.fieldSkillMul);
+        baseNum = Math.floor(baseNum * this.addPassiveMul);
+        baseNum = Math.floor(baseNum * this.mulPassiveMul);
+        baseNum = Math.floor(baseNum * this.supportMul);
+        baseNum = Math.floor(baseNum * this.activeSkillMul);
+        baseNum = Math.floor(baseNum * this.linkSkillMul);
+        const baseValue = baseNum;
+
+        let currentKiBonus = 1;
+        let currentSuperAdjust = this.superAdjustTotal;
 
         if (this.selector?.value === "ATK") {
             // 1発目
-            this.currentKiBonus = this.mainKiBonus;
-            this.superAdjustTotal += this.mainSuperAddEffect;
+            currentKiBonus = this.mainKiBonus;
+            currentSuperAdjust += this.mainSuperAddEffect;
 
-            let finalSuperMul =
-                this.mainSuperPower + this.superAdjustTotal;
+            let finalSuperMul = this.mainSuperPower + currentSuperAdjust;
 
-            this.pushFinalValue(baseValue, finalSuperMul, this.currentKiBonus);
+            this.pushFinalValue(baseValue, finalSuperMul, currentKiBonus);
 
             /* ==========
                 追撃処理（順序通り）
@@ -194,52 +258,41 @@ const App = {
             const selectedRarity = this.raritySelector?.value;
             this.followUpList.forEach(followUp => {
 
-                let baseSuperPower;
+                let baseSuperMul
 
                 if (followUp.isSuper) {
                     // 必殺追撃
                     if (selectedRarity === "LR" || selectedRarity === "LR極限") {
-                        this.currentKiBonus = this.followUpKiBonus;
-                        this.superAdjustTotal += this.followUpSuperAddEffect;
-                        baseSuperPower = this.followUpSuperPower;
+                        currentKiBonus = this.followUpKiBonus;
+                        currentSuperAdjust += this.followUpSuperAddEffect;
+                        baseSuperMul = this.followUpSuperPower;
                     } else {
-                        this.currentKiBonus = this.mainKiBonus;
-                        this.superAdjustTotal += this.mainSuperAddEffect;
-                        baseSuperPower = this.mainSuperPower;
+                        currentKiBonus = this.mainKiBonus;
+                        currentSuperAdjust += this.mainSuperAddEffect;
+                        baseSuperMul = this.mainSuperPower;
                     }
                 } else {
                     // 通常追撃
-                    this.currentKiBonus = this.mainKiBonus;
-                    baseSuperPower = 1;
+                    currentKiBonus = this.mainKiBonus;
+                    baseSuperMul = 1;
                 }
 
-                finalSuperMul = baseSuperPower + this.superAdjustTotal;
+                finalSuperMul = baseSuperMul + currentSuperAdjust;
 
-                this.pushFinalValue(baseValue, finalSuperMul, this.currentKiBonus);
+                this.pushFinalValue(baseValue, finalSuperMul, currentKiBonus);
             });
         } else if (this.selector?.value === "DEF") {
-            const baseValue = Math.floor(
-                this.baseStat
-                * this.leaderSkillMul
-                * this.fieldSkillMul
-                * this.addPassiveMul
-                * this.mulPassiveMul
-                * this.supportMul
-                * this.activeSkillMul
-                * this.linkSkillMul
-            );
-            this.pushFinalValue(baseValue, 1, 1);
+            const finalSuperMul = 1 + this.superAdjustTotal;
+
+            this.pushFinalValue(baseValue, finalSuperMul, 1);
         }
 
         this.renderOutput();
     },
 
     pushFinalValue(baseValue, superMul, kiBonus) {
-        const finalValue = Math.floor(
-            baseValue
-            * superMul
-            * kiBonus
-        );
+        let finalValue = Math.floor(baseValue * superMul);
+        finalValue = Math.floor(finalValue * kiBonus);
 
         this.finalValues.push(finalValue);
     },
@@ -252,15 +305,16 @@ const App = {
         ).join("");
 
         if (this.selector?.value === "ATK") {
-            const criticalRate = Number(document.getElementById("criticalRate")?.value || 0) / 100;
             const isEffective = document.getElementById("effectiveCheckbox")?.checked || false;
             let total = this.finalValues.reduce((a, b) => a + b, 0);
 
+            this.criticalRate = Math.min(this.criticalRate, 1);
+
             if (isEffective) {
                 total *= 1.5;
-                total *= (1 + 0.25 * criticalRate);
+                total *= (1 + 0.25 * this.criticalRate);
             } else {
-                total *= (1 + 0.875 * criticalRate);
+                total *= (1 + 0.875 * this.criticalRate);
             }
 
             const totalDamage = document.getElementById("totalDamage");
@@ -269,12 +323,11 @@ const App = {
 
         if (this.selector?.value === "DEF") {
             const enemyATK = (Number(document.getElementById("enemyATK")?.value) || 0) * 10000;
-            const reductionRate = Number(document.getElementById("reductionRate")?.value) / 100;
             const allGuard = document.getElementById("allGuard")?.checked || false;
 
             const baseValue = this.finalValues.reduce((a, b) => a + b, 0);
 
-            let damage = enemyATK * (1 - reductionRate);
+            let damage = enemyATK * (1 - this.reductionRate);
             if (allGuard) damage *= 0.8;
 
             damage -= baseValue;
@@ -328,10 +381,15 @@ const App = {
         this.superAdjustTotal = 0;
         this.followUpList = [];
 
+        this.criticalRate = 0;
+        this.reductionRate = 0;
+
         this.finalValues = [];
     },
 
     selectUpdate() {
+        this.updateVisibility();
+        this.updateRarity();
         this.calculateFinal();
     },
 
@@ -342,7 +400,90 @@ const App = {
     firstUpdate() {
         this.updateVisibility();
         this.updateRarity();
+        this.applyRarityDefaults();
         this.calculateFinal();
+    },
+
+    // save/load 機能
+
+    getSaveData() {
+        const groups = {};
+
+        document.querySelectorAll(".status[data-input-group]").forEach(status => {
+            const group = status.dataset.inputGroup;
+            const values = [];
+
+            status.querySelectorAll("input").forEach(input => {
+                if (input.type === "checkbox") {
+                    values.push(input.checked);
+                } else {
+                    values.push(input.value);
+                }
+            });
+
+            groups[group] = values;
+        });
+
+        return {
+            selector: this.selector?.value,
+            rarity: this.raritySelector?.value,
+            groups
+        };
+    },
+
+    loadSaveData(data) {
+        if (!data) return;
+
+        this.selector.value = data.selector;
+        this.raritySelector.value = data.rarity;
+
+        this.firstUpdate(); // ← ここでDOM初期化
+
+        Object.entries(data.groups).forEach(([group, values]) => {
+            const status = document.querySelector(`.status[data-input-group="${group}"]`);
+            if (!status) return;
+
+            const form = status.querySelector("form");
+            if (!form) return;
+
+            // 最初の1個を残して削除
+            const inputs = form.querySelectorAll(".input-box");
+            inputs.forEach((box, i) => {
+                if (i > 0) box.remove();
+            });
+
+            // 2個目以降を再生成
+            for (let i = 1; i < values.length; i++) {
+                // inputBox.js の関数を使う前提
+                window.addInputBoxForSave?.(group);
+            }
+
+            // 値を流し込む
+            form.querySelectorAll("input").forEach((input, i) => {
+                if (input.type === "checkbox") {
+                    input.checked = !!values[i];
+                } else {
+                    input.value = values[i];
+                }
+            });
+        });
+
+        this.calculateFinal();
+    },
+
+    getUniqueSelector(el) {
+        if (el.id) return `#${el.id}`;
+
+        const path = [];
+        while (el && el.nodeType === 1 && el !== document.body) {
+            let selector = el.tagName.toLowerCase();
+            if (el.className) {
+                selector += "." + [...el.classList].join(".");
+            }
+            path.unshift(selector);
+            el = el.parentElement;
+        }
+        return path.join(" > ");
     }
 };
 
@@ -351,4 +492,5 @@ export default App;
 // ページロード時に初期化
 window.addEventListener("DOMContentLoaded", () => {
     App.init();
+    App.firstUpdate();
 });
