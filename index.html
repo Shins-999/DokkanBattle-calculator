@@ -88,19 +88,19 @@
         </div>
 
         <!-- 基礎ステータス -->
-        <template id="Status-input-template">
+        <template id="baseStat-input-template">
             <div class="input-box">
-                <input type="number" class="status-input NumericalValue" data-key="Status" value="0" min="1"
+                <input type="number" class="baseStat-input NumericalValue" data-key="baseStat" value="0" min="1"
                     onwheel="this.blur()">
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="Status">
+        <div class="status" data-input-group="baseStat">
             <p class="Sentence">ステータス</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input NumericalValue" data-key="Status" value="0" min="1"
+                    <input type="number" class="status-input NumericalValue" data-key="baseStat" value="0" min="1"
                         onwheel="this.blur()">
                 </div>
             </form>
@@ -108,20 +108,20 @@
         </div>
 
         <!-- リーダースキル -->
-        <template id="LeaderSkill-input-template">
+        <template id="leaderSkillMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="LeaderSkill" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="leaderSkillMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="LeaderSkill">
+        <div class="status" data-input-group="leaderSkillMul">
             <p class="Sentence">リーダースキル</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="LeaderSkill" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="leaderSkillMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -130,20 +130,20 @@
         </div>
 
         <!-- 足し算パッシブ -->
-        <template id="AdditionPassive-input-template">
+        <template id="addPassiveMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="AdditionPassive" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="addPassiveMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="AdditionPassive">
+        <div class="status" data-input-group="addPassiveMul">
             <p class="Sentence">足し算パッシブ</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="AdditionPassive" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="addPassiveMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -152,20 +152,20 @@
         </div>
 
         <!-- 掛け算パッシブ -->
-        <template id="MultiplicationPassive-input-template">
+        <template id="mulPassiveMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="MultiplicationPassive" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="mulPassiveMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="MultiplicationPassive">
+        <div class="status" data-input-group="mulPassiveMul">
             <p class="Sentence">掛け算パッシブ</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="MultiplicationPassive" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="mulPassiveMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -174,20 +174,20 @@
         </div>
 
         <!-- リンクスキル -->
-        <template id="LinkSkill-input-template">
+        <template id="linkSkillMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="LinkSkill" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="linkSkillMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="LinkSkill">
+        <div class="status" data-input-group="linkSkillMul">
             <p class="Sentence">リンクスキル</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="LinkSkill" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="linkSkillMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -200,8 +200,8 @@
             <p class="Sentence">気力ボーナス</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Magnification" data-key="maxVitalityBonus"
-                        data-rarity-key="maxVitalityBonus" value="1" min="1" step="0.01" onwheel="this.blur()">
+                    <input type="number" class="status-input Magnification" data-key="mainKiBonus"
+                        data-rarity-key="mainKiBonus" value="1" min="1" step="0.01" onwheel="this.blur()">
                     <p class="unit">倍</p>
                 </div>
             </form>
@@ -213,8 +213,8 @@
             <p class="Sentence">追撃必殺気力ボーナス</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Magnification" data-key="minVitalityBonus"
-                        data-rarity-key="minVitalityBonus" value="1" min="1" step="0.01" onwheel="this.blur()">
+                    <input type="number" class="status-input Magnification" data-key="followUpKiBonus"
+                        data-rarity-key="followUpKiBonus" value="1" min="1" step="0.01" onwheel="this.blur()">
                     <p class="unit">倍</p>
                 </div>
             </form>
@@ -222,21 +222,21 @@
         </div>
 
         <!-- 必殺技威力 -->
-        <template id="SuperSpecialMove-input-template">
+        <template id="mainSuperPower-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="SuperSpecialMove" value="100" min="100"
+                <input type="number" class="status-input Percent" data-key="mainSuperPower" value="100" min="100"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="SuperSpecialMove" data-hide="DEF">
+        <div class="status" data-input-group="mainSuperPower" data-hide="DEF">
             <p class="Sentence">必殺技威力</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="SuperSpecialMove"
-                        data-rarity-key="SuperSpecialMove" value="100" min="100" onwheel="this.blur()">
+                    <input type="number" class="status-input Percent" data-key="mainSuperPower"
+                        data-rarity-key="mainSuperPower" value="100" min="100" onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
             </form>
@@ -244,21 +244,21 @@
         </div>
 
         <!-- 追撃必殺技威力 -->
-        <template id="StandardSpecialMove-input-template">
+        <template id="followUpSuperPower-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="StandardSpecialMove"
-                    data-rarity-key="StandardSpecialMove" value="100" min="100" onwheel="this.blur()">
+                <input type="number" class="status-input Percent" data-key="followUpSuperPower" value="100" min="100"
+                    onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="StandardSpecialMove" data-hide="DEF">
+        <div class="status" data-input-group="followUpSuperPower" data-hide="DEF">
             <p class="Sentence">追撃必殺技威力</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="StandardSpecialMove"
-                        data-rarity-key="StandardSpecialMove" value="100" min="100" onwheel="this.blur()">
+                    <input type="number" class="status-input Percent" data-key="followUpSuperPower"
+                        data-rarity-key="followUpSuperPower" value="100" min="100" onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
             </form class="input-section">
@@ -266,20 +266,20 @@
         </div>
 
         <!-- 必殺技追加効果（累積） -->
-        <template id="SpecialMoveAdjustment-input-template">
+        <template id="superAdjustTotal-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="SpecialMoveAdjustment" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="superAdjustTotal" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="SpecialMoveAdjustment">
+        <div class="status" data-input-group="superAdjustTotal">
             <p class="Sentence">必殺技追加効果(累積)</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="SpecialMoveAdjustment" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="superAdjustTotal" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -288,21 +288,21 @@
         </div>
 
         <!-- 必殺技ATK追加効果 -->
-        <template id="StandardSpecialAdditionalEffect-input-template">
+        <template id="mainSuperAddEffect-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="StandardSpecialAdditionalEffect" value="0"
-                    min="0" onwheel="this.blur()">
+                <input type="number" class="status-input Percent" data-key="mainSuperAddEffect" value="0" min="0"
+                    onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="StandardSpecialAdditionalEffect" data-hide="DEF">
+        <div class="status" data-input-group="mainSuperAddEffect" data-hide="DEF">
             <p class="Sentence">必殺技ATK追加効果</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="StandardSpecialAdditionalEffect"
-                        value="0" min="0" onwheel="this.blur()">
+                    <input type="number" class="status-input Percent" data-key="SuperSpecialMove" value="0" min="0"
+                        onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
             </form class="input-section">
@@ -310,21 +310,21 @@
         </div>
 
         <!-- 追撃必殺技ATK追加効果 -->
-        <template id="SuperSpecialMoveAdditionalEffect-input-template">
+        <template id="followUpSuperAddEffect-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="SuperSpecialMoveAdditionalEffect" value="0"
-                    min="0" onwheel="this.blur()">
+                <input type="number" class="status-input Percent" data-key="followUpSuperAddEffect" value="0" min="0"
+                    onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="SuperSpecialMoveAdditionalEffect" data-hide="DEF">
+        <div class="status" data-input-group="followUpSuperAddEffect" data-hide="DEF">
             <p class="Sentence">追撃必殺技ATK追加効果</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="SuperSpecialMoveAdditionalEffect"
-                        value="0" min="0" onwheel="this.blur()">
+                    <input type="number" class="status-input Percent" data-key="followUpSuperAddEffect" value="0"
+                        min="0" onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
             </form class="input-section">
@@ -332,20 +332,20 @@
         </div>
 
         <!-- アクティブ・スタンバイスキル -->
-        <template id="ActionSkill-input-template">
+        <template id="activeSkillMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="ActionSkill" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="activeSkillMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="ActionSkill">
+        <div class="status" data-input-group="activeSkillMul">
             <p class="Sentence">アクティブ・スタンバイスキル</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="ActionSkill" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="activeSkillMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -354,20 +354,20 @@
         </div>
 
         <!-- フィールドスキル -->
-        <template id="FieldSkill-input-template">
+        <template id="fieldSkillMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="FieldSkill" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="fieldSkillMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="FieldSkill">
+        <div class="status" data-input-group="fieldSkillMul">
             <p class="Sentence">フィールドスキル</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="FieldSkill" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="fieldSkillMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -376,20 +376,20 @@
         </div>
 
         <!-- サポートメモリー -->
-        <template id="SupportMemory-input-template">
+        <template id="supportMemoryMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="SupportMemory" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="supportMemoryMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="SupportMemory">
+        <div class="status" data-input-group="supportMemoryMul">
             <p class="Sentence">サポートメモリー</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="SupportMemory" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="supportMemoryMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -398,20 +398,20 @@
         </div>
 
         <!-- サポートアイテム -->
-        <template id="SupportItem-input-template">
+        <template id="supportItemMul-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="SupportItem" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="supportItemMul" value="0" min="0"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
             </div>
         </template>
 
-        <div class="status" data-input-group="SupportItem">
+        <div class="status" data-input-group="supportItemMul">
             <p class="Sentence">サポートアイテム</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" data-key="SupportItem" value="0" min="0"
+                    <input type="number" class="status-input Percent" data-key="supportItemMul" value="0" min="0"
                         onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>

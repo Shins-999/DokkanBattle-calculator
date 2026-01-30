@@ -35,14 +35,14 @@ const App = {
         this.finalOutput = document.getElementById("values");
 
         this.rarityValues = {
-            LR: { maxVitalityBonus: 2, minVitalityBonus: 1.5, SuperSpecialMove: 570, StandardSpecialMove: 425 },
-            フェスUR: { maxVitalityBonus: 1.5, minVitalityBonus: 1.5, SuperSpecialMove: 505, StandardSpecialMove: 505 },
-            通常UR: { maxVitalityBonus: 1.4, minVitalityBonus: 1.4, SuperSpecialMove: 430, StandardSpecialMove: 430 },
-            イベントUR: { maxVitalityBonus: 1.3, minVitalityBonus: 1.3, SuperSpecialMove: 430, StandardSpecialMove: 430 },
-            LR極限: { maxVitalityBonus: 2, minVitalityBonus: 1.5, SuperSpecialMove: 620, StandardSpecialMove: 450 },
-            フェスUR極限: { maxVitalityBonus: 1.5, minVitalityBonus: 1.5, SuperSpecialMove: 630, StandardSpecialMove: 630 },
-            通常UR極限: { maxVitalityBonus: 1.4, minVitalityBonus: 1.4, SuperSpecialMove: 530, StandardSpecialMove: 530 },
-            イベントUR極限: { maxVitalityBonus: 1.3, minVitalityBonus: 1.3, SuperSpecialMove: 530, StandardSpecialMove: 530 },
+            LR: { mainKiBonus: 2, followUpKiBonus: 1.5, mainSuperPower: 570, followUpSuperPower: 425 },
+            フェスUR: { mainKiBonus: 1.5, followUpKiBonus: 1.5, mainSuperPower: 505, followUpSuperPower: 505 },
+            通常UR: { mainKiBonus: 1.4, followUpKiBonus: 1.4, mainSuperPower: 430, followUpSuperPower: 430 },
+            イベントUR: { mainKiBonus: 1.3, followUpKiBonus: 1.3, mainSuperPower: 430, followUpSuperPower: 430 },
+            LR極限: { mainKiBonus: 2, followUpKiBonus: 1.5, mainSuperPower: 620, followUpSuperPower: 450 },
+            フェスUR極限: { mainKiBonus: 1.5, followUpKiBonus: 1.5, mainSuperPower: 630, followUpSuperPower: 630 },
+            通常UR極限: { mainKiBonus: 1.4, followUpKiBonus: 1.4, mainSuperPower: 530, followUpSuperPower: 530 },
+            イベントUR極限: { mainKiBonus: 1.3, followUpKiBonus: 1.3, mainSuperPower: 530, followUpSuperPower: 530 },
         };
 
         this.statusInitialHTML = new Map();
@@ -162,7 +162,7 @@ const App = {
         const lrOnlyInputs = document.querySelectorAll("[data-visible-for='LR']");
         lrOnlyInputs.forEach(input => {
             const parent = input.closest(".status") || input;
-            if (selectedRarity === "LR" || selectedRarity === "LR極限") {
+            if (selectedRarity.includes("LR")) {
                 parent.classList.remove("hidden");
             } else {
                 parent.classList.add("hidden");
@@ -189,6 +189,8 @@ const App = {
     calculateFinal() {
         this.reset();
 
+        const selectedRarity = this.raritySelector.value;
+
         document.querySelectorAll(".status input").forEach(input => {
             const key = input.dataset.key;
             const val = Number(input.value) || 0;
@@ -197,26 +199,91 @@ const App = {
                 入力値集計
                 ========== */
             switch (key) {
-                case "Status": this.baseStat += val; break;
-                case "LeaderSkill": this.leaderSkillMul += val / 100; break;
-                case "FieldSkill": this.fieldSkillMul += val / 100; break;
-                case "AdditionPassive": this.addPassiveMul += val / 100; break;
-                case "MultiplicationPassive": this.mulPassiveMul += val / 100; break;
-                case "LinkSkill": this.linkSkillMul += val / 100; break;
-                case "maxVitalityBonus": this.mainKiBonus = val; break;
-                case "minVitalityBonus": this.followUpKiBonus = val; break;
-                case "SuperSpecialMove": this.mainSuperPower += val / 100; break;
-                case "StandardSpecialMove": this.followUpSuperPower += val / 100; break;
-                case "SpecialMoveAdjustment": this.superAdjustTotal += val / 100; break;
-                case "StandardSpecialAdditionalEffect": this.followUpSuperAddEffect += val / 100; break;
-                case "SuperSpecialMoveAdditionalEffect": this.mainSuperAddEffect += val / 100; break;
-                case "ActionSkill": this.activeSkillMul += val / 100; break;
-                case "SupportMemory": this.supportMul += val / 100; break;
-                case "SupportItem": this.supportMul += val / 100; break;
-                case "CriticalRate": this.criticalRate += val / 100; break;
-                case "ReductionRate": this.reductionRate += val / 100; break;
+                case "baseStat":
+                    this.baseStat += val;
+                    break;
+
+                case "leaderSkillMul":
+                    this.leaderSkillMul += val / 100;
+                    break;
+
+                case "fieldSkillMul":
+                    this.fieldSkillMul += val / 100;
+                    break;
+
+                case "addPassiveMul":
+                    this.addPassiveMul += val / 100;
+                    break;
+
+                case "mulPassiveMul":
+                    this.mulPassiveMul += val / 100;
+                    break;
+
+                case "linkSkillMul":
+                    this.linkSkillMul += val / 100;
+                    break;
+
+                case "mainKiBonus":
+                    this.mainKiBonus = val;
+                    break;
+
+                case "followUpKiBonus":
+                    if (selectedRarity.includes("LR")) {
+                        this.followUpKiBonus = val;
+                    }
+                    break;
+
+                case "mainSuperPower":
+                    this.mainSuperPower += val / 100;
+                    break;
+
+                case "followUpSuperPower":
+                    if (selectedRarity.includes("LR")) {
+                        this.followUpSuperPower += val / 100;
+                    }
+                    break;
+
+                case "superAdjustTotal":
+                    this.superAdjustTotal += val / 100;
+                    break;
+
+                case "mainSuperAddEffect":
+                    this.mainSuperAddEffect += val / 100;
+                    break;
+
+                case "followUpSuperAddEffect":
+                    if (selectedRarity.includes("LR")) {
+                        this.followUpSuperAddEffect += val / 100;
+                    }
+                    break;
+
+                case "activeSkillMul":
+                    this.activeSkillMul += val / 100;
+                    break;
+
+                case "supportMemoryMul":
+                    this.supportMul += val / 100;
+                    break;
+
+                case "supportItemMul":
+                    this.supportMul += val / 100;
+                    break;
+
+                case "criticalRate":
+                    this.criticalRate += val / 100;
+                    break;
+
+                case "reductionRate":
+                    this.reductionRate += val / 100;
+                    break;
             }
         });
+
+        if (!selectedRarity.includes("LR")) {
+            this.followUpKiBonus = this.mainKiBonus;
+            this.followUpSuperPower = this.mainSuperPower;
+            this.followUpSuperAddEffect = this.mainSuperAddEffect;
+        }
 
         /* ==========
             追撃リスト生成
@@ -262,18 +329,12 @@ const App = {
 
                 if (followUp.isSuper) {
                     // 必殺追撃
-                    if (selectedRarity === "LR" || selectedRarity === "LR極限") {
-                        currentKiBonus = this.followUpKiBonus;
-                        currentSuperAdjust += this.followUpSuperAddEffect;
-                        baseSuperMul = this.followUpSuperPower;
-                    } else {
-                        currentKiBonus = this.mainKiBonus;
-                        currentSuperAdjust += this.mainSuperAddEffect;
-                        baseSuperMul = this.mainSuperPower;
-                    }
+                    currentKiBonus = this.followUpKiBonus;
+                    currentSuperAdjust += this.followUpSuperAddEffect;
+                    baseSuperMul = this.followUpSuperPower;
                 } else {
                     // 通常追撃
-                    currentKiBonus = this.mainKiBonus;
+                    currentKiBonus = this.followUpKiBonus;
                     baseSuperMul = 1;
                 }
 
