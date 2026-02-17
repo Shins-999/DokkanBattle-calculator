@@ -33,6 +33,9 @@ const App = {
         this.allStatusDivs = document.querySelectorAll("[data-hide]");
         this.raritySelector = document.getElementById("raritySelect");
         this.finalOutput = document.getElementById("values");
+        this.onActiveSkillCheckbox = document.getElementById("OnActiveSkillCheckbox");
+
+        this.onActiveSkillCheckbox?.addEventListener("change", () => this.selectUpdate());
 
         this.rarityValues = {
             LR: { mainKiBonus: 2, followUpKiBonus: 1.5, mainSuperPower: 570, followUpSuperPower: 425 },
@@ -137,9 +140,16 @@ const App = {
         if (!this.selector) return;
 
         const selected = this.selector.value;
+        const isActive = this.onActiveSkillCheckbox?.checked;
 
         this.allStatusDivs.forEach(div => {
-            if (div.dataset.hide === selected) {
+            const hideTokens = (div.dataset.hide || "").split(/\s+/).filter(Boolean);
+            const shouldHide =
+                hideTokens.includes(selected) ||
+                (isActive && hideTokens.includes("Active")) ||
+                (!isActive && hideTokens.includes("NonActive"));
+
+            if (shouldHide) {
                 div.classList.add("hidden");
 
                 const initialHTML = this.statusInitialHTML.get(div);
@@ -181,9 +191,10 @@ const App = {
         document.querySelectorAll(".status input").forEach(input => {
             const key = input.dataset.rarityKey;
             if (!key || raritySet[key] === undefined) return;
-
-            input.value = raritySet[key];
-        });
+            if (this.selector?.value === "ATK") {
+                input.value = raritySet[key];
+            }
+        })
     },
 
     calculateFinal() {
@@ -267,6 +278,10 @@ const App = {
 
                 case "supportItemMul":
                     this.supportMul += val / 100;
+                    break;
+
+                case "activeSkillPower":
+                    this.activeSkillMul += val / 100;
                     break;
 
                 case "criticalRate":

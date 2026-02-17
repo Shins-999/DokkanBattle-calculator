@@ -73,9 +73,16 @@
             </select>
         </div>
 
+        <div class="OnActiveSkill" data-hide="DEF">
+            <p class="settingFont">アクティブ・スタンバイスキル威力</p>
+            <label class="checkbox">
+                <input type="checkbox" id="OnActiveSkillCheckbox" onwheel="this.blur()">
+            </label>
+        </div>
+
         <!-- テンプレート選択 -->
         <div>
-            <select id="raritySelect" data-hide="DEF">
+            <select id="raritySelect" data-hide="DEF Active">
                 <option value="LR">LR</option>
                 <option value="フェスUR">フェスUR</option>
                 <option value="通常UR">通常UR</option>
@@ -209,7 +216,7 @@
         </div>
 
         <!-- 追撃必殺気力ボーナス -->
-        <div class="status" data-hide="DEF" data-visible-for="LR">
+        <div class="status" data-hide="DEF Active" data-visible-for="LR">
             <p class="Sentence">追撃必殺気力ボーナス</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -231,7 +238,7 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="mainSuperPower" data-hide="DEF">
+        <div class="status" data-input-group="mainSuperPower" data-hide="DEF Active">
             <p class="Sentence">必殺技威力</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -253,7 +260,7 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="followUpSuperPower" data-hide="DEF">
+        <div class="status" data-input-group="followUpSuperPower" data-hide="DEF Active">
             <p class="Sentence">追撃必殺技威力</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -297,7 +304,7 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="mainSuperAddEffect" data-hide="DEF">
+        <div class="status" data-input-group="mainSuperAddEffect" data-hide="DEF Active">
             <p class="Sentence">必殺技ATK追加効果</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -319,7 +326,7 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="followUpSuperAddEffect" data-hide="DEF">
+        <div class="status" data-input-group="followUpSuperAddEffect" data-hide="DEF Active">
             <p class="Sentence">追撃必殺技ATK追加効果</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
@@ -432,10 +439,32 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="FollowUp" data-hide="DEF">
+        <div class="status" data-input-group="FollowUp" data-hide="DEF Active">
             <p class="Sentence">追撃</p>
             <form class="input-section" onsubmit="return false;">
             </form>
+            <button type="button" class="add-btn">＋</button>
+        </div>
+
+        <!-- アクティブ・スタンバイスキル威力 -->
+        <template id="activeSkillPower-input-template">
+            <div class="input-box">
+                <input type="number" class="status-input Percent" data-key="activeSkillPower" value="0" min="0"
+                    onwheel="this.blur()">
+                <p class="unit">%</p>
+                <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>
+            </div>
+        </template>
+
+        <div class="status" data-input-group="activeSkillPower" data-hide="DEF NonActive">
+            <p class="Sentence">アクティブ・スタンバイスキル威力</p>
+            <form class="input-section" onsubmit="return false;">
+                <div class="input-box">
+                    <input type="number" class="status-input Percent" data-key="activeSkillPower" value="0" min="0"
+                        onwheel="this.blur()">
+                    <p class="unit">%</p>
+                </div>
+            </form class="input-section">
             <button type="button" class="add-btn">＋</button>
         </div>
 
@@ -459,7 +488,7 @@
             <p class="Sentence">会心発動率</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" id="criticalRate" class="status-input Percent" data-key="CriticalRate"
+                    <input type="number" id="criticalRate" class="status-input Percent" data-key="criticalRate"
                         value="0" min="0" onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -476,7 +505,7 @@
         </div>
 
         <!-- 敵ATK -->
-        <div class="status" data-hide="ATK">
+        <div class="status" data-hide=" Active">
             <p class="Sentence">敵ATK</p>
             <form class="input-section" onsubmit="return false;">
                 <input type="number" class="NumbericalValue" id="enemyATK" value="0" min="0" onwheel="this.blur()">
@@ -494,11 +523,11 @@
             </div>
         </template>
 
-        <div class="status" data-input-group="ReductionRate" data-hide="ATK">
+        <div class="status" data-input-group="ReductionRate" data-hide="ATK Active">
             <p class="Sentence">ダメージ軽減率</p>
             <form class="input-section" onsubmit="return false;">
                 <div class="input-box">
-                    <input type="number" class="status-input Percent" id="reductionRate" data-key="ReductionRate"
+                    <input type="number" class="status-input Percent" id="reductionRate" data-key="reductionRate"
                         value="0" min="0" onwheel="this.blur()">
                     <p class="unit">%</p>
                 </div>
@@ -507,7 +536,7 @@
         </div>
 
         <!-- 全属性ガード -->
-        <div class="status" data-hide="ATK">
+        <div class="status" data-hide="ATK Active">
             <p class="Sentence">全属性ガード</p>
             <label class="checkbox">
                 <input type="checkbox" id="allGuard" onwheel="this.blur()">
@@ -520,7 +549,7 @@
         </div>
 
         <!-- 非ダメージ表示欄 -->
-        <div class="big-value big" data-hide="ATK">
+        <div class="big-value big" data-hide="ATK Active">
             <p class="left">被ダメージ: <span id="damageTaken" min="0">0</span></p>
         </div>
     </main>
