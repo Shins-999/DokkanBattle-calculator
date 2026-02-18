@@ -74,10 +74,10 @@
         </div>
 
         <div class="OnActiveSkill" data-hide="DEF">
-            <p class="settingFont">アクティブ・スタンバイスキル威力</p>
             <label class="checkbox">
                 <input type="checkbox" id="OnActiveSkillCheckbox" onwheel="this.blur()">
             </label>
+            <p class="settingFont">アクティブ・スタンバイスキル威力</p>
         </div>
 
         <!-- テンプレート選択 -->
@@ -449,7 +449,7 @@
         <!-- アクティブ・スタンバイスキル威力 -->
         <template id="activeSkillPower-input-template">
             <div class="input-box">
-                <input type="number" class="status-input Percent" data-key="activeSkillPower" value="0" min="0"
+                <input type="number" class="status-input Percent" data-key="activeSkillPower" value="100" min="100"
                     onwheel="this.blur()">
                 <p class="unit">%</p>
                 <button type="button" class="delete-btn"><img src="img/DeleteIcon.png" alt=""></button>

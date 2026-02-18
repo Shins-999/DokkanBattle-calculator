@@ -281,7 +281,9 @@ const App = {
                     break;
 
                 case "activeSkillPower":
-                    this.activeSkillMul += val / 100;
+                    if (this.onActiveSkillCheckbox?.checked) {
+                        this.activeSkillMul += (val / 100) - 1
+                    };
                     break;
 
                 case "criticalRate":
@@ -314,12 +316,19 @@ const App = {
             共通ベース値
             ========== */
         let baseNum = Math.floor(this.baseStat * this.leaderSkillMul)
+        console.log("baseStat:", this.baseStat, "leaderSkillMul:", this.leaderSkillMul, "baseNum:", baseNum);
         baseNum = Math.floor(baseNum * this.fieldSkillMul);
+        console.log("baseNum after fieldSkillMul:", baseNum, "fieldSkillMul:", this.fieldSkillMul);
         baseNum = Math.floor(baseNum * this.addPassiveMul);
+        console.log("baseNum after addPassiveMul:", baseNum, "addPassiveMul:", this.addPassiveMul);
         baseNum = Math.floor(baseNum * this.mulPassiveMul);
+        console.log("baseNum after mulPassiveMul:", baseNum, "mulPassiveMul:", this.mulPassiveMul);
         baseNum = Math.floor(baseNum * this.supportMul);
+        console.log("baseNum after supportMul:", baseNum, "supportMul:", this.supportMul);
         baseNum = Math.floor(baseNum * this.activeSkillMul);
+        console.log("baseNum after activeSkillMul:", baseNum, "activeSkillMul:", this.activeSkillMul);
         baseNum = Math.floor(baseNum * this.linkSkillMul);
+        console.log("baseNum after linkSkillMul:", baseNum, "linkSkillMul:", this.linkSkillMul);
         const baseValue = baseNum;
 
         let currentKiBonus = 1;
@@ -464,8 +473,8 @@ const App = {
     },
 
     selectUpdate() {
-        this.updateVisibility();
         this.updateRarity();
+        this.updateVisibility();
         this.calculateFinal();
     },
 
@@ -474,8 +483,8 @@ const App = {
     },
 
     firstUpdate() {
-        this.updateVisibility();
         this.updateRarity();
+        this.updateVisibility();
         this.applyRarityDefaults();
         this.calculateFinal();
     },

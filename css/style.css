@@ -16,6 +16,10 @@
     font-size: 30px;
 }
 
+.OnActiveSkill {
+    display: flex;
+}
+
 /* 全体 */
 .main {
     width: 96%;
