@@ -141,13 +141,20 @@ const App = {
 
         const selected = this.selector.value;
         const isActive = this.onActiveSkillCheckbox?.checked;
+        const selectedRarity = this.raritySelector?.value || "";
 
         this.allStatusDivs.forEach(div => {
             const hideTokens = (div.dataset.hide || "").split(/\s+/).filter(Boolean);
+            const visibleFor =
+                div.dataset.visibleFor ||
+                div.querySelector("[data-visible-for]")?.dataset.visibleFor ||
+                "";
+            const isVisibleForRarity = !visibleFor || selectedRarity.includes(visibleFor);
             const shouldHide =
                 hideTokens.includes(selected) ||
                 (isActive && hideTokens.includes("Active")) ||
-                (!isActive && hideTokens.includes("NonActive"));
+                (!isActive && hideTokens.includes("NonActive")) ||
+                !isVisibleForRarity;
 
             if (shouldHide) {
                 div.classList.add("hidden");
