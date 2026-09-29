@@ -210,7 +210,6 @@ const App = {
     },
 
     calculateFinal() {
-        console.log("Calculating final start");
         this.reset();
 
         const selectedRarity = this.raritySelector.value;
