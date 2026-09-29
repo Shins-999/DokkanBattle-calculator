@@ -49,9 +49,14 @@ const App = {
         };
 
         this.statusInitialHTML = new Map();
+        this.statusInitialInputBoxCounts = new Map();
 
         document.querySelectorAll(".status").forEach(status => {
             this.statusInitialHTML.set(status, status.innerHTML);
+            this.statusInitialInputBoxCounts.set(
+                status,
+                status.querySelectorAll("form > .input-box").length
+            );
         });
 
         // イベントリスナー
@@ -205,6 +210,7 @@ const App = {
     },
 
     calculateFinal() {
+        console.log("Calculating final start");
         this.reset();
 
         const selectedRarity = this.raritySelector.value;
@@ -500,6 +506,7 @@ const App = {
 
     getSaveData() {
         const groups = {};
+        const controls = {};
 
         document.querySelectorAll(".status[data-input-group]").forEach(status => {
             const group = status.dataset.inputGroup;
@@ -516,9 +523,18 @@ const App = {
             groups[group] = values;
         });
 
+        // input-group を持たない単独入力も保存する。
+        document.querySelectorAll(".status:not([data-input-group]) input").forEach(input => {
+            const key = input.id || input.dataset.key;
+            if (!key) return;
+
+            controls[key] = input.type === "checkbox" ? input.checked : input.value;
+        });
+
         return {
             selector: this.selector?.value,
             rarity: this.raritySelector?.value,
+            controls,
             groups
         };
     },
@@ -529,25 +545,31 @@ const App = {
         this.selector.value = data.selector;
         this.raritySelector.value = data.rarity;
 
+        const controls = data.controls || {};
+        if (this.onActiveSkillCheckbox && "OnActiveSkillCheckbox" in controls) {
+            this.onActiveSkillCheckbox.checked = !!controls.OnActiveSkillCheckbox;
+        }
+
         this.firstUpdate(); // ← ここでDOM初期化
 
-        Object.entries(data.groups).forEach(([group, values]) => {
+        Object.entries(data.groups || {}).forEach(([group, values]) => {
             const status = document.querySelector(`.status[data-input-group="${group}"]`);
             if (!status) return;
 
             const form = status.querySelector("form");
             if (!form) return;
 
-            // 最初の1個を残して削除
-            const inputs = form.querySelectorAll(".input-box");
-            inputs.forEach((box, i) => {
-                if (i > 0) box.remove();
-            });
+            // 初期状態から増えた入力欄だけを消し、保存数まで再生成する。
+            // FollowUp は初期入力欄が0個なので、保存数ぶん全て生成する。
+            const initialBoxCount = this.statusInitialInputBoxCounts.get(status) || 0;
+            const inputBoxes = Array.from(form.querySelectorAll(":scope > .input-box"));
+            inputBoxes.slice(initialBoxCount).forEach(box => box.remove());
 
-            // 2個目以降を再生成
-            for (let i = 1; i < values.length; i++) {
-                // inputBox.js の関数を使う前提
-                window.addInputBoxForSave?.(group);
+            const template = document.getElementById(`${group}-input-template`);
+            for (let i = initialBoxCount; i < values.length; i++) {
+                const clone = template?.content.firstElementChild?.cloneNode(true);
+                if (!clone) break;
+                form.appendChild(clone);
             }
 
             // 値を流し込む
@@ -558,6 +580,17 @@ const App = {
                     input.value = values[i];
                 }
             });
+        });
+
+        document.querySelectorAll(".status:not([data-input-group]) input").forEach(input => {
+            const key = input.id || input.dataset.key;
+            if (!key || key === "OnActiveSkillCheckbox" || !(key in controls)) return;
+
+            if (input.type === "checkbox") {
+                input.checked = !!controls[key];
+            } else {
+                input.value = controls[key];
+            }
         });
 
         this.calculateFinal();
@@ -579,7 +612,8 @@ const App = {
     }
 };
 
-export default App;
+// file:// で直接開く場合も利用できるよう、通常スクリプトとして公開する。
+window.App = App;
 
 // ページロード時に初期化
 window.addEventListener("DOMContentLoaded", () => {
